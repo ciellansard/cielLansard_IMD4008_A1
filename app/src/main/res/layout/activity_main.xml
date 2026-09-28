@@ -22,11 +22,24 @@
         android:stretchColumns = "*"
         android:background="@color/darkGrey">
 
-        <View
+        <TextView
+            android:id="@+id/inputDisplay"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:background="@color/mint"/>
+
+            android:layout_margin="4dp"
+            android:padding="20dp"
+
+            android:background="@drawable/screen"
+            android:fontFamily="monospace"
+            android:textSize="22dp"
+            android:textColor="@color/darkGrey"
+            android:shadowColor="@color/oliveShadow"
+            android:shadowRadius="2"
+            android:textStyle="bold"
+
+            android:text = "Operations go here \n0123456789"/>
 
 
         <GridLayout
@@ -372,7 +385,7 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
-                android:text = "( - )"/>
+                android:text = "(+/-)"/>
             <TextView
                 android:id="@+id/buttonAdd"
 
