@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="darkGrey">#151717</color>
+
+    <color name="mint">#8DC5B2</color>
+
+    <color name="midGrey">#D6D1D0</color>
+    <color name="midGreyShadow">#797777</color>
+
+    <color name="blue">#6F749B</color>
+    <color name="blueShadow">#43475B</color>
+
+    <color name="yellow">#EAAE40</color>
+    <color name="yellowShadow">#83652C</color>
+
+    <color name="teal">#50BBB7</color>
+    <color name="tealShadow">#336C6A</color>
+
+    <color name="olive">#85B18E</color>
+    <color name="oliveShadow">#4F6755</color>
+</resources>
