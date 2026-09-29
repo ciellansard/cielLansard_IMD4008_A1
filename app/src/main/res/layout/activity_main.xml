@@ -343,7 +343,7 @@
 
                 android:onClick="appendCharacterToScreen"
 
-                android:text = "-"/>
+                android:text = "−"/>
             <TextView
                 android:id="@+id/button0"
 
@@ -530,6 +530,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="solveFormula"
 
                 android:text = "="/>
             <TextView

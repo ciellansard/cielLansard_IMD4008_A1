@@ -1,5 +1,7 @@
 package com.example.ciellansard_imd4008_a1;
 
+import static java.lang.Float.isNaN;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -57,7 +59,71 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public float evaluateFormula(String formula) {
-        return 0; // Detail this later
+        String symbols = "()÷×−+";
+        String newFormula =  formula;
+        String innerFormula = formula;
+
+        // Get the index of the last ( and the first ) after that. This
+        // locates the innermost operation
+        if (newFormula.contains("(")) {
+            int openIdx = -1;
+            int closedIdx = -1;
+            for (int i = 0; i < newFormula.length(); i++) {
+                if (newFormula.charAt(i) == '(') openIdx = i;
+            }
+            for (int i = openIdx; i < newFormula.length(); i++) {
+                if (newFormula.charAt(i) == ')') {
+                    closedIdx = i;
+                    break;
+                }
+            }
+
+            if (openIdx < 0 || closedIdx < 0) {
+                return (float)(Double.NaN);
+            }
+
+            innerFormula = newFormula.substring(openIdx + 1, closedIdx);
+            //screen.setText(innerFormula);
+        }
+
+        if (innerFormula.contains("÷")) {
+            String firstValue = "";
+            String secondValue = "";
+            int divIdx = -1;
+
+            // Locate the first division sign
+            for (int i = 0; i < innerFormula.length(); i++) {
+                if (innerFormula.charAt(i) == '÷') {
+                    divIdx = i;
+                    break;
+                }
+            }
+
+            // Work backwards from the division symbol; prepend characters
+            // preceding the symbol to firstValue until another symbol is
+            // found or the start of the formula is reached
+            for (int i = divIdx; i >= 0; i--) {
+                String currentCharacter = Character.toString(innerFormula.charAt(i));
+                if (symbols.contains(currentCharacter)) {
+                    break;
+                }
+                firstValue = currentCharacter + firstValue;
+            }
+            //
+            for (int i = divIdx; i < innerFormula.length(); i++) {
+                String currentCharacter = Character.toString(innerFormula.charAt(i));
+                if (symbols.contains(currentCharacter)) {
+                    break;
+                }
+                secondValue += currentCharacter;
+            }
+        }
+
+
+
+
+
+        return 0;
     }
 
     // Clear the screen (only used for buttonClear's onClick)
@@ -133,5 +199,14 @@ public class MainActivity extends AppCompatActivity {
 
         currentText += storedValue;
         screen.setText(currentText);
+    }
+
+    //
+    public void solveFormula(View button) {
+        String currentText = screen.getText().toString();
+        float solution = evaluateFormula(currentText);
+
+        //if (isNaN(solution)) screen.setText("Error: syntax error");
+        //else screen.setText(Float.toString(solution));
     }
 }
