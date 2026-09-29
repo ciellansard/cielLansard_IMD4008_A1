@@ -23,7 +23,7 @@
         android:background="@color/darkGrey">
 
         <TextView
-            android:id="@+id/inputDisplay"
+            android:id="@+id/screen"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -39,7 +39,7 @@
             android:shadowRadius="2"
             android:textStyle="bold"
 
-            android:text = "Operations go here \n0123456789"/>
+            android:text = ""/>
 
 
         <GridLayout
@@ -77,6 +77,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "7"/>
             <TextView
                 android:id="@+id/button8"
@@ -98,6 +100,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="appendCharacterToScreen"
 
                 android:text = "8"/>
             <TextView
@@ -121,6 +125,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "9"/>
             <TextView
                 android:id="@+id/buttonDivide"
@@ -142,6 +148,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="appendCharacterToScreen"
 
                 android:text = "÷"/>
             <TextView
@@ -165,6 +173,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "4"/>
             <TextView
                 android:id="@+id/button5"
@@ -186,6 +196,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="appendCharacterToScreen"
 
                 android:text = "5"/>
             <TextView
@@ -209,6 +221,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "6"/>
             <TextView
                 android:id="@+id/buttonMultiply"
@@ -230,6 +244,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="appendCharacterToScreen"
 
                 android:text = "×"/>
             <TextView
@@ -253,6 +269,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "1"/>
             <TextView
                 android:id="@+id/button2"
@@ -274,6 +292,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="appendCharacterToScreen"
 
                 android:text = "2"/>
             <TextView
@@ -297,6 +317,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "3"/>
             <TextView
                 android:id="@+id/buttonSubtract"
@@ -318,6 +340,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="appendCharacterToScreen"
 
                 android:text = "-"/>
             <TextView
@@ -341,6 +365,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "0"/>
             <TextView
                 android:id="@+id/buttonDecimal"
@@ -363,9 +389,11 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "."/>
             <TextView
-                android:id="@+id/buttonNegative"
+                android:id="@+id/buttonSign"
 
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -407,6 +435,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="appendCharacterToScreen"
+
                 android:text = "+"/>
             <TextView
                 android:id="@+id/buttonBracketOpen"
@@ -428,6 +458,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="appendCharacterToScreen"
 
                 android:text = "("/>
             <TextView
@@ -516,6 +548,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="appendCharacterToScreen"
 
                 android:text = ")"/>
             <TextView
