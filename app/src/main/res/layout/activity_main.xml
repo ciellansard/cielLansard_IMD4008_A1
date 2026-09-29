@@ -507,6 +507,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="storeValue"
+
                 android:text = "STORE"/>
             <TextView
                 android:id="@+id/buttonEqual"
@@ -598,6 +600,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="recallValue"
 
                 android:text = "RCALL"/>
             <TextView
