@@ -483,6 +483,8 @@
                 android:shadowRadius="1"
                 android:textStyle="bold"
 
+                android:onClick="deleteLastCharacter"
+
                 android:text = "BACK"/>
             <TextView
                 android:id="@+id/buttonStore"
@@ -572,6 +574,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="clearScreen"
 
                 android:text = "CLEAR"/>
             <TextView

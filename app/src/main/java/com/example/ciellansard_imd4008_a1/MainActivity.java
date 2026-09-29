@@ -48,4 +48,18 @@ public class MainActivity extends AppCompatActivity {
         currentText += ((TextView) button).getText().toString();
         screen.setText(currentText);
     }
+
+    // Delete the last character from the screen
+    public void deleteLastCharacter(View button) {
+        String currentText = screen.getText().toString();
+        int textLength = currentText.length();
+        if (textLength > 0) {
+            screen.setText(currentText.substring(0, textLength - 1));
+        }
+    }
+
+    // Clear the screen
+    public void clearScreen(View button) {
+        screen.setText("");
+    }
 }
