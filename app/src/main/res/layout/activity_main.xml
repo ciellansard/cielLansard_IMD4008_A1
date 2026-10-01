@@ -39,7 +39,7 @@
             android:shadowRadius="2"
             android:textStyle="bold"
 
-            android:text = ""/>
+            android:text = "2+(7+3÷2+1.3−222+(4×21.2))×(8−1.3+9)+(-21.459)"/>
 
 
         <GridLayout
