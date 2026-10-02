@@ -18,6 +18,11 @@ public class MainActivity extends AppCompatActivity {
     String historicalText;
     boolean isInHistoricalMode;
 
+    static final String STORED_VALUE = "storedValue";
+    static final String WORKING_TEXT = "workingText";
+    static final String HISTORICAL_TEXT = "historicalText";
+    static final String IS_IN_HISTORICAL_MODE = "isInHistoricalMode";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -269,5 +274,26 @@ public class MainActivity extends AppCompatActivity {
             screen.setText(workingText);
             isInHistoricalMode = false;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(STORED_VALUE, storedValue);
+        savedInstanceState.putString(WORKING_TEXT, workingText);
+        savedInstanceState.putString(HISTORICAL_TEXT, historicalText);
+        savedInstanceState.putBoolean(IS_IN_HISTORICAL_MODE, isInHistoricalMode);
+        //super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        storedValue = savedInstanceState.getString(STORED_VALUE);
+        workingText = savedInstanceState.getString(WORKING_TEXT);
+        historicalText = savedInstanceState.getString(HISTORICAL_TEXT);
+        isInHistoricalMode = savedInstanceState.getBoolean(IS_IN_HISTORICAL_MODE);
+        if (isInHistoricalMode) screen.setText(historicalText);
+        else screen.setText(workingText);
     }
 }
