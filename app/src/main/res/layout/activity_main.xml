@@ -22,25 +22,27 @@
         android:stretchColumns = "*"
         android:background="@color/darkGrey">
 
-        <TextView
-            android:id="@+id/screen"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-
-            android:layout_margin="4dp"
-            android:padding="20dp"
-
             android:background="@drawable/screen"
-            android:fontFamily="monospace"
-            android:textSize="22dp"
-            android:textColor="@color/darkGrey"
-            android:shadowColor="@color/oliveShadow"
-            android:shadowRadius="2"
-            android:textStyle="bold"
+            android:layout_margin="4dp"
+            android:padding="20dp">
+            <TextView
+                android:id="@+id/screen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
-            android:text = "2+(7+3÷2+1.3−222+(4×21.2))×(8−1.3+9)+(-21.459)"/>
+                android:fontFamily="monospace"
+                android:textSize="22dp"
+                android:textColor="@color/darkGrey"
+                android:shadowColor="@color/oliveShadow"
+                android:shadowRadius="2"
+                android:textStyle="bold"
 
+                android:text = "2+(7+3÷2+1.3−222+(4×21.2))×(8−1.3+9)+(-21.459)"/>
+        </ScrollView>
 
         <GridLayout
             android:id="@+id/buttonContainer"
@@ -626,6 +628,8 @@
                 android:shadowDy="-3"
                 android:shadowRadius="1"
                 android:textStyle="bold"
+
+                android:onClick="toggleHistory"
 
                 android:text = "HSTRY"/>
         </GridLayout>

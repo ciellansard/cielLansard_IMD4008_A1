@@ -1,7 +1,5 @@
 package com.example.ciellansard_imd4008_a1;
 
-import static java.lang.Float.isNaN;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,18 +13,10 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     TextView screen;
-    // All keys that type exactly what's on the key
-    // Nums 0 - 9, ., (), and operands (excluding =)
-    TextView[] btnType = new TextView[17];
-    TextView btnBack;
-    TextView btnClear;
-    TextView btnStore;
-    TextView btnRecall;
-    TextView btnSign;
-    TextView btnHistory;
-    TextView btnEqual;
-
     String storedValue;
+    String workingText;
+    String historicalText;
+    boolean isInHistoricalMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         screen = findViewById(R.id.screen);
-
-        btnEqual  = findViewById(R.id.buttonEqual);
+        workingText = "";
+        historicalText = "";
+        isInHistoricalMode = false;
     }
 
     // Return true if character is a letter of the alphabet
@@ -51,11 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Return true if character can be stored (numbers, (, -)
     public boolean isStoreable(Character character) {
-        if (character == '-' || character == '(' || (character >= '0' && character <= '9')) {
-            // perform more checks here
-            return true;
-        }
-        return false;
+        return character == '-' || character == '(' || (character >= '0' && character <= '9');
     }
 
     public String doOperation(String formula, String operator) {
@@ -115,12 +102,22 @@ public class MainActivity extends AppCompatActivity {
 
         return e;
     }
+
+    public void updateScreenAndHistoricalText(String text) {
+        if (!isInHistoricalMode) {
+            historicalText += "IN: [" + screen.getText() + "]\n";
+            historicalText += "OUT: [" + text + "]\n\n";
+            screen.setText(text);
+        }
+    }
+
     public void evaluateFormula(String formula) {
+        historicalText += "IN: [" + screen.getText() + "]\n";
         String newFormula =  formula;
         String innerFormula = formula;
         while(newFormula.matches(".*[()÷×−+].*")) {
             if ((Character.toString(newFormula.charAt(0))).matches(".*[÷×−+].*") || (Character.toString(newFormula.charAt(newFormula.length() - 1))).matches(".*[÷×−+].*")) {
-                screen.setText("Error: syntax error");
+                updateScreenAndHistoricalText("Error: syntax error");
                 return;
             }
 
@@ -133,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     if (newFormula.charAt(i) == '(') openIdx = i;
                 }
                 if (openIdx < 0) {
-                    screen.setText("Error: missing opening bracket");
+                    updateScreenAndHistoricalText("Error: missing opening bracket");
                     return;
                 }
 
@@ -144,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (closedIdx < 0) {
-                    screen.setText("Error: missing closing bracket");
+                    updateScreenAndHistoricalText("Error: missing closing bracket");
                     return;
                 }
 
@@ -159,76 +156,25 @@ public class MainActivity extends AppCompatActivity {
             //String e = "";
             if (openIdx > -1 && closedIdx > 0) {
                 screen.setText(newFormula.substring(0, openIdx) + innerFormula + newFormula.substring(closedIdx + 1));
-            } else screen.setText(innerFormula);
+            }
+            else screen.setText(innerFormula);
 
             newFormula = screen.getText().toString();
             innerFormula = newFormula;
         }
-        return;
+        historicalText += "OUT: [" + screen.getText() + "]\n\n";
     }
 
     // Clear the screen (only used for buttonClear's onClick)
     public void clearScreen(View button) {
-        screen.setText("");
+        if (!isInHistoricalMode) screen.setText("");
     }
 
     // When a button is pressed, add the character from the button to the
     // end of the current expression (screen)
     // Example: pressing button 7 adds a '7' to the screen
     public void appendCharacterToScreen(View button) {
-        String currentText = screen.getText().toString();
-
-        int textLength = currentText.length();
-
-        if (textLength > 0) {
-            // Clear the screen if currentText is alphabetic (i.e. an error or storage message)
-            if (isAlpha(currentText.charAt(0))) {
-                currentText = "";
-            }
-        }
-
-        currentText += ((TextView) button).getText().toString();
-        screen.setText(currentText);
-    }
-
-    // Delete the last character from the screen
-    public void deleteLastCharacter(View button) {
-        String currentText = screen.getText().toString();
-
-        int textLength = currentText.length();
-        if (textLength > 0) {
-            // Clear the screen if currentText is alphabetic (i.e. an error or storage message)
-            if (isAlpha(currentText.charAt(0))) {
-                screen.setText("");
-                return;
-            }
-            screen.setText(currentText.substring(0, textLength - 1));
-        }
-    }
-
-    //
-    public void storeValue(View button) {
-        String currentText = screen.getText().toString();
-        evaluateFormula(currentText);
-        currentText = screen.getText().toString();
-        if (currentText.length() > 0) {
-            // Clear the screen if currentText is alphabetic (i.e. an error or storage message)
-            if (!isStoreable(currentText.charAt(0))) {
-                screen.setText("Error: result could not be stored");
-                return;
-            }
-            //storedValue = evaluateFormula(currentText).toString();
-            storedValue = currentText;
-            screen.setText("Value (" + storedValue + ") stored");
-            return;
-        }
-
-        screen.setText("Error: cannot store");
-    }
-
-    //
-    public void recallValue(View button) {
-        if (storedValue != null) {
+        if (!isInHistoricalMode) {
             String currentText = screen.getText().toString();
 
             int textLength = currentText.length();
@@ -240,14 +186,88 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            currentText += storedValue;
+            currentText += ((TextView) button).getText().toString();
             screen.setText(currentText);
+        }
+    }
+
+    // Delete the last character from the screen
+    public void deleteLastCharacter(View button) {
+        if (!isInHistoricalMode) {
+            String currentText = screen.getText().toString();
+
+            int textLength = currentText.length();
+            if (textLength > 0) {
+                // Clear the screen if currentText is alphabetic (i.e. an error or storage message)
+                if (isAlpha(currentText.charAt(0))) {
+                    screen.setText("");
+                    return;
+                }
+                screen.setText(currentText.substring(0, textLength - 1));
+            }
+        }
+    }
+
+    //
+    public void storeValue(View button) {
+        if (!isInHistoricalMode) {
+            String currentText = screen.getText().toString();
+            evaluateFormula(currentText);
+            currentText = screen.getText().toString();
+            if (currentText.length() > 0) {
+                // Clear the screen if currentText is alphabetic (i.e. an error or storage message)
+                if (!isStoreable(currentText.charAt(0))) {
+                    updateScreenAndHistoricalText("Error: result could not be stored");
+                    return;
+                }
+                //storedValue = evaluateFormula(currentText).toString();
+                storedValue = currentText;
+                updateScreenAndHistoricalText("Value (" + storedValue + ") stored");
+                return;
+            }
+
+            updateScreenAndHistoricalText("Error: cannot store empty input");
+
+        }
+    }
+    //
+    public void recallValue(View button) {
+        if (!isInHistoricalMode) {
+            if (storedValue != null) {
+                String currentText = screen.getText().toString();
+
+                int textLength = currentText.length();
+
+                if (textLength > 0) {
+                    // Clear the screen if currentText is alphabetic (i.e. an error or storage message)
+                    if (isAlpha(currentText.charAt(0))) {
+                        currentText = "";
+                    }
+                }
+
+                currentText += storedValue;
+                screen.setText(currentText);
+            }
         }
     }
 
     //
     public void solveFormula(View button) {
-        String currentText = screen.getText().toString();
-        evaluateFormula(currentText);
+        if (!isInHistoricalMode) {
+            String currentText = screen.getText().toString();
+            evaluateFormula(currentText);
+        }
+    }
+
+    public void toggleHistory(View button) {
+        if (!isInHistoricalMode) {
+            workingText = screen.getText().toString();
+            screen.setText(historicalText);
+            isInHistoricalMode = true;
+        }
+        else {
+            screen.setText(workingText);
+            isInHistoricalMode = false;
+        }
     }
 }
